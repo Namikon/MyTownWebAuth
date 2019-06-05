@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mytownwebauth",
+  "name": "MyTownWeb Authenticator",
+  "description": "A Minecraft mod to enable user-registration for the MyTownWeb Page",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Namikon"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
