@@ -43,15 +43,25 @@ public class MongoController {
     return client;
   }
 
-  public boolean unlockAccount( String pAccountToken, String pPlayerUUID )
+  private boolean updateRecordByAccountToken( String pAccountToken, String pFieldToUpdate, String pNewValue  )
   {
     MongoDatabase database = getClient().getDatabase( MyTownWebAuth.MTWACfg.Mongo_Database );
     MongoCollection<Document> tAccounts = database.getCollection( "accounts" );
 
     BasicDBObject query = new BasicDBObject("accountToken", pAccountToken);
-    BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("playerUUID", pPlayerUUID));
+    BasicDBObject set = new BasicDBObject("$set", new BasicDBObject(pFieldToUpdate, pNewValue));
     Document ret = tAccounts.findOneAndUpdate(query, set);
 
     return (ret != null);
+  }
+
+  public boolean setStaff(String pAccountToken, String pStaffFlag)
+  {
+    return updateRecordByAccountToken(pAccountToken, "staff", pStaffFlag);
+  }
+
+  public boolean unlockAccount( String pAccountToken, String pPlayerUUID )
+  {
+    return updateRecordByAccountToken(pAccountToken, "playerUUID", pAccountToken);
   }
 }

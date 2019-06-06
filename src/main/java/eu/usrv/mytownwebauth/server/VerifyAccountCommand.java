@@ -20,30 +20,12 @@ package eu.usrv.mytownwebauth.server;
 
 import eu.usrv.mytownwebauth.mongo.MongoController;
 import eu.usrv.yamcore.auxiliary.PlayerChatHelper;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.MinecraftServer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class VerifyAccountCommand implements ICommand
+public class VerifyAccountCommand extends CommandBase
 {
-  private List aliases;
-
-  public VerifyAccountCommand()
-  {
-    this.aliases = new ArrayList();
-  }
-
-  @Override
-  public int compareTo( Object arg0 )
-  {
-    return 0;
-  }
+  public VerifyAccountCommand() { }
 
   @Override
   public String getCommandName()
@@ -58,15 +40,9 @@ public class VerifyAccountCommand implements ICommand
   }
 
   @Override
-  public List getCommandAliases()
-  {
-    return this.aliases;
-  }
-
-  @Override
   public void processCommand( ICommandSender pCmdSender, String[] pArgs )
   {
-    if( !InGame( pCmdSender ) )
+    if( IsConsoleUser( pCmdSender ) )
     {
       PlayerChatHelper.SendPlain( pCmdSender, "Must be online to use this command" );
       return;
@@ -80,7 +56,7 @@ public class VerifyAccountCommand implements ICommand
     {
       String tSubCommand = pArgs[0];
       String tAccountToken = pArgs[1];
-      if( tSubCommand.equalsIgnoreCase( "register" ) || tSubCommand.equalsIgnoreCase( "r" ) )
+      if( tSubCommand.equalsIgnoreCase( "verify" ) )
       {
         if (!tAccountToken.matches( "[a-zA-Z0-9]+" )) {
           PlayerChatHelper.SendError( tEP, "Illegal Characters in Account Secret" );
@@ -96,41 +72,5 @@ public class VerifyAccountCommand implements ICommand
         PlayerChatHelper.SendNotifyPositive( tEP, getCommandUsage( null ) );
       }
     }
-  }
-
-  private boolean InGame( ICommandSender pCmdSender )
-  {
-    if( !( pCmdSender instanceof EntityPlayer ) )
-      return false;
-    else
-      return true;
-  }
-
-  @Override
-  public boolean canCommandSenderUseCommand( ICommandSender pCommandSender )
-  {
-    if( pCommandSender instanceof EntityPlayerMP )
-    {
-      EntityPlayerMP tEP = (EntityPlayerMP) pCommandSender;
-      boolean tPlayerOpped = MinecraftServer.getServer().getConfigurationManager().func_152596_g( tEP.getGameProfile() );
-      boolean tIncreative = tEP.capabilities.isCreativeMode;
-      return tPlayerOpped && tIncreative;
-    }
-    else if( pCommandSender instanceof MinecraftServer )
-      return true;
-    else
-      return false;
-  }
-
-  @Override
-  public List addTabCompletionOptions( ICommandSender sender, String[] args )
-  {
-    return null;
-  }
-
-  @Override
-  public boolean isUsernameIndex( String[] p_82358_1_, int p_82358_2_ )
-  {
-    return false;
   }
 }

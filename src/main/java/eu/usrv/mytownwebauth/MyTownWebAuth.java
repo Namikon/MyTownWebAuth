@@ -25,6 +25,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import eu.usrv.mytownwebauth.config.MTWAConfig;
+import eu.usrv.mytownwebauth.server.AdminCommand;
 import eu.usrv.mytownwebauth.server.VerifyAccountCommand;
 import eu.usrv.yamcore.auxiliary.IngameErrorLog;
 import eu.usrv.yamcore.auxiliary.LogHelper;
@@ -36,14 +37,14 @@ import java.util.Random;
 @Mod( modid = MyTownWebAuth.MODID, name = MyTownWebAuth.MODNAME, version = MyTownWebAuth.VERSION, dependencies = "required-after:Forge@[10.13.4.1558,);required-after:YAMCore@[0.5.69,);", acceptableRemoteVersions = "*" )
 public class MyTownWebAuth
 {
-  public static final String MODID = "mytownwebauth";
-  public static final String VERSION = "GRADLETOKEN_VERSION";
-  public static final String MODNAME = "MyTownWeb Authenticator";
-  public static final String NICEFOLDERNAME = "MyTownWebAuth";
+  static final String MODID = "mytownwebauth";
+  static final String VERSION = "GRADLETOKEN_VERSION";
+  static final String MODNAME = "MyTownWeb Authenticator";
+  private static final String NICEFOLDERNAME = "MyTownWebAuth";
   public static MTWAConfig MTWACfg = null;
-  public static IngameErrorLog AdminLogonErrors = null;
-  public static LogHelper Logger = new LogHelper( MODID );
-  public static Random Rnd = null;
+  private static IngameErrorLog AdminLogonErrors = null;
+  private static LogHelper Logger = new LogHelper( MODID );
+  private static Random Rnd = null;
 
   @Instance( MODID )
   public static MyTownWebAuth instance;
@@ -70,5 +71,6 @@ public class MyTownWebAuth
   {
     CommandHandler ch = (CommandHandler) FMLCommonHandler.instance().getMinecraftServerInstance().getCommandManager();
     ch.registerCommand( new VerifyAccountCommand() );
+    ch.registerCommand( new AdminCommand() );
   }
 }
