@@ -41,7 +41,7 @@ minecraft {
 repositories {
     maven { // GalacticGreg, YAMCore,..
         name 'UsrvDE'
-        url "http://jenkins.usrv.de:8082/nexus/content/repositories/releases/"
+        url "http://jenkins.usrv.eu:8081/nexus/content/repositories/releases/"
     }
 }
 
@@ -52,7 +52,7 @@ configurations {
 
 dependencies {
     compile "eu.usrv:YAMCore:${config.minecraft.version}-${config.yamcore.version}:deobf"
-    embedded 'org.mongodb:mongodb-driver:3.3.0'
+    embedded 'org.mongodb:mongodb-driver:3.4.0'
 }
 
 processResources

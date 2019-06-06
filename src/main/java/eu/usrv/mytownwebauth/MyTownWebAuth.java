@@ -34,7 +34,7 @@ import net.minecraft.command.CommandHandler;
 import java.util.Random;
 
 
-@Mod( modid = MyTownWebAuth.MODID, name = MyTownWebAuth.MODNAME, version = MyTownWebAuth.VERSION, dependencies = "required-after:Forge@[10.13.4.1558,);required-after:YAMCore@[0.5.69,);", acceptableRemoteVersions = "*" )
+@Mod( modid = MyTownWebAuth.MODID, name = MyTownWebAuth.MODNAME, version = MyTownWebAuth.VERSION, dependencies = "required-after:Forge@[10.13.4.1614,);required-after:YAMCore@[0.5.76,);", acceptableRemoteVersions = "*" )
 public class MyTownWebAuth
 {
   static final String MODID = "mytownwebauth";

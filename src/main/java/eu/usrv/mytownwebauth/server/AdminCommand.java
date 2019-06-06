@@ -32,7 +32,7 @@ public class AdminCommand extends CommandBase {
       String tArg = pArgs[3];
 
       // /mytownwebadmin set uid [accountToken] [UUID]
-      // /mytownwebadmin set staff [accountToken] [0/1]
+      // /mytownwebadmin set staff [UUID] [0/1]
       if (tSubCommand.equalsIgnoreCase("set")) {
 
         if (tSubSubCommand.equalsIgnoreCase("uid")) {

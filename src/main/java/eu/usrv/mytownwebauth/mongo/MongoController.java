@@ -33,35 +33,31 @@ public class MongoController {
   private MongoClient getClient(){
     if (client == null)
     {
-      client = new MongoClient(
-          new MongoClientURI( "mongodb://" + MyTownWebAuth.MTWACfg.Mongo_Username +
-              ":" + MyTownWebAuth.MTWACfg.Mongo_Password +
-              "@" + MyTownWebAuth.MTWACfg.Mongo_Server + "/?authSource=" +
-              MyTownWebAuth.MTWACfg.Mongo_AuthDB ) );
+      client = new MongoClient( new MongoClientURI( MyTownWebAuth.MTWACfg.MongoConnectionString ));
     }
 
     return client;
   }
 
-  private boolean updateRecordByAccountToken( String pAccountToken, String pFieldToUpdate, String pNewValue  )
+  private boolean updateRecordByField(String pSearchField, String pSearchValue, String pFieldToUpdate, String pNewValue  )
   {
-    MongoDatabase database = getClient().getDatabase( MyTownWebAuth.MTWACfg.Mongo_Database );
+    MongoDatabase database = getClient().getDatabase( MyTownWebAuth.MTWACfg.Mongo_Collection);
     MongoCollection<Document> tAccounts = database.getCollection( "accounts" );
 
-    BasicDBObject query = new BasicDBObject("accountToken", pAccountToken);
+    BasicDBObject query = new BasicDBObject(pSearchField, pSearchValue);
     BasicDBObject set = new BasicDBObject("$set", new BasicDBObject(pFieldToUpdate, pNewValue));
     Document ret = tAccounts.findOneAndUpdate(query, set);
 
     return (ret != null);
   }
 
-  public boolean setStaff(String pAccountToken, String pStaffFlag)
+  public boolean setStaff(String pPlayerUUID, String pStaffFlag)
   {
-    return updateRecordByAccountToken(pAccountToken, "staff", pStaffFlag);
+    return updateRecordByField("playerUUID", pPlayerUUID, "staff", pStaffFlag);
   }
 
   public boolean unlockAccount( String pAccountToken, String pPlayerUUID )
   {
-    return updateRecordByAccountToken(pAccountToken, "playerUUID", pAccountToken);
+    return updateRecordByField("accountToken", pAccountToken, "playerUUID", pPlayerUUID);
   }
 }

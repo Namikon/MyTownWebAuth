@@ -30,34 +30,21 @@ public class MTWAConfig extends ConfigManager
     super( pConfigBaseDirectory, pModCollectionDirectory, pModID );
   }
 
-  public String Mongo_Server;
-  public int Mongo_Port;
-  public String Mongo_Username;
-  public String Mongo_Password;
-  public String Mongo_Database;
-  public String Mongo_AuthDB;
+  public String MongoConnectionString;
+  public String Mongo_Collection;
 
   @Override
   protected void PreInit()
   {
-    Mongo_Server = "localhost";
-    Mongo_Port = 27010;
-    Mongo_Username = "";
-    Mongo_Password = "";
-    Mongo_Database = "mytownweb-login";
-    Mongo_AuthDB = "authentication_database_name";
+    MongoConnectionString = "mongodb://";
+    Mongo_Collection = "mytownweb-login";
   }
 
   @Override
   protected void Init()
   {
-    Mongo_Port = _mainConfig.getInt( "Mongo_Port", "DataBase", Mongo_Port, 0, 65532, "Port of the MongoDB Instance" );
-
-    Mongo_Server = _mainConfig.getString( "Mongo_Server", "DataBase", Mongo_Server, "Your MongoDB Server you use for User-Authentication on MyTownWeb" );
-    Mongo_Username = _mainConfig.getString( "Mongo_Username", "DataBase", Mongo_Username, "The DB Username" );
-    Mongo_Password = _mainConfig.getString( "Mongo_Password", "DataBase", Mongo_Password, "The DB Password" );
-    Mongo_Database = _mainConfig.getString( "Mongo_Database", "DataBase", Mongo_Database, "The DB Name" );
-    Mongo_AuthDB = _mainConfig.getString( "Mongo_AuthDB", "DataBase", Mongo_AuthDB, "The Mongo AuthDB Name" );
+    MongoConnectionString = _mainConfig.getString( "MongoConnectionString", "MongoDB", MongoConnectionString, "Your MongoDB Server Connection String" );
+    Mongo_Collection = _mainConfig.getString( "Mongo_Collection", "MongoDB", Mongo_Collection, "The Collection Name" );
   }
 
   @Override
