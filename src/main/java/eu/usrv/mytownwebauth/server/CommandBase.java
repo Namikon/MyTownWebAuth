@@ -2,7 +2,6 @@ package eu.usrv.mytownwebauth.server;
 
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -18,10 +17,14 @@ public abstract class CommandBase implements ICommand {
         this.aliases = new ArrayList();
     }
 
-    @Override
-    public int compareTo( Object arg0 )
+    private int compareTo(ICommand p_compareTo_1_)
     {
-        return 0;
+        return this.getCommandName().compareTo(p_compareTo_1_.getCommandName());
+    }
+
+    public int compareTo(Object p_compareTo_1_)
+    {
+        return this.compareTo((ICommand)p_compareTo_1_);
     }
 
     @Override

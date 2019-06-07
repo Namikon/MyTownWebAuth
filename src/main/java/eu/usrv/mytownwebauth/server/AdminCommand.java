@@ -15,7 +15,7 @@ public class AdminCommand extends CommandBase {
 
   @Override
   public String getCommandUsage(ICommandSender pCommandSender) {
-    return "mytownwebadmin set [uid/staff] [UUID/0-1]";
+    return "/mytownwebadmin set <option> <data1> <data2>";
   }
 
   @Override
@@ -51,7 +51,19 @@ public class AdminCommand extends CommandBase {
         PlayerChatHelper.SendPlain(pCmdSender, "Syntax Error");
       }
     }
+    else if (pArgs.length == 1)
+    {
+      String tSubCommand = pArgs[0];
+      if (tSubCommand.equalsIgnoreCase("help"))
+      {
+        PlayerChatHelper.SendPlain(pCmdSender, "Valid options are:");
+        PlayerChatHelper.SendPlain(pCmdSender, "1] set uid [accountToken] [UUID]");
+        PlayerChatHelper.SendPlain(pCmdSender, "1] This will attach given UUID to Account with given AccountToken");
+        PlayerChatHelper.SendPlain(pCmdSender, "2] set staff [UUID] [1/0]");
+        PlayerChatHelper.SendPlain(pCmdSender, "2] Changes Staff-Flag for given UUID");
+      }
+    }
     else
-      PlayerChatHelper.SendPlain(pCmdSender, getCommandUsage(null));
+      PlayerChatHelper.SendPlain(pCmdSender, "Type /mytownwebadmin help for help");
   }
 }

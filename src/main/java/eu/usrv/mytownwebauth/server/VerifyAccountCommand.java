@@ -36,7 +36,7 @@ public class VerifyAccountCommand extends CommandBase
   @Override
   public String getCommandUsage( ICommandSender pCommandSender )
   {
-    return "Type /mytownweb verify [AccountSecret] to activate your Account";
+    return "/mytownweb verify <AccountToken>";
   }
 
   @Override
