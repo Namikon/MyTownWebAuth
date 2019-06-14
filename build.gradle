@@ -55,6 +55,14 @@ dependencies {
     embedded 'org.mongodb:mongodb-driver:3.4.0'
 }
 
+jar {
+    configurations.embedded.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+}
+
 processResources
 {
     def cleanVersion = project.version.split('-')[1]
